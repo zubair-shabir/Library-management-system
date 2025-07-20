@@ -1,0 +1,67 @@
+<div class="p-6 max-w-3xl mx-auto">
+  <h2 class="text-3xl font-extrabold mb-8 text-indigo-700 text-center">User Borrowing Records</h2>
+
+  <div *ngFor="let user of users" class="border border-indigo-200 bg-white p-6 mb-6 rounded-xl shadow-lg">
+    <div class="flex items-center mb-2">
+      <div
+        class="bg-indigo-100 text-indigo-700 rounded-full h-10 w-10 flex items-center justify-center text-lg font-bold mr-3">
+        {{ user.username.charAt(0) | uppercase }}
+      </div>
+      <h3 class="text-xl font-semibold text-indigo-800">{{ user.username }}</h3>
+    </div>
+    <button (click)="toggleTransactions(user.id)"
+      class="mb-2 bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 rounded">
+      {{ expandedUserId === user.id ? 'Hide' : 'Show' }} Transactions
+    </button>
+    <div *ngIf="expandedUserId === user.id">
+      <table class="w-full text-sm mt-2 border">
+        <thead>
+          <tr class="bg-indigo-100">
+            <th class="p-2 border">Book</th>
+            <th class="p-2 border">Action</th>
+            <th class="p-2 border">Date/Time</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let t of getTransactionsForUser(user.id)">
+            <td class="p-2 border">{{ t.bookTitle }}</td>
+            <td class="p-2 border">{{ t.action | titlecase }}</td>
+            <td class="p-2 border">{{ t.timestamp | date:'medium' }}</td>
+          </tr>
+          <tr *ngIf="getTransactionsForUser(user.id).length === 0">
+            <td colspan="3" class="p-2 text-center text-gray-400">No transactions found.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="text-gray-600 mb-2">Borrowed Books:</p>
+    <ul class="ml-6 list-disc text-gray-800">
+      <li *ngIf="user.borrowedBooks.length === 0" class="italic text-gray-400">No books borrowed.</li>
+      <li *ngFor="let bookId of user.borrowedBooks">
+        {{ getBookTitleById(bookId) }}
+      </li>
+    </ul>
+    <div *ngIf="editUserId === user.id; else editButton">
+      <div class="mt-4 flex flex-col gap-2">
+        <label class="font-semibold text-gray-700">Username</label>
+        <input [(ngModel)]="editUsername" class="border border-gray-300 p-2 rounded" />
+        <label class="font-semibold text-gray-700">Password</label>
+        <input [(ngModel)]="editPassword" type="password" class="border border-gray-300 p-2 rounded" />
+        <label class="font-semibold text-gray-700">Borrow Limit</label>
+        <input [(ngModel)]="editBorrowLimit" type="number" min="1" class="border border-gray-300 p-2 rounded w-24" />
+        <div class="flex gap-2 mt-2">
+          <button (click)="saveEdit()"
+            class="bg-green-600 hover:bg-green-700 text-white px-4 py-1 rounded">Save</button>
+          <button (click)="cancelEdit()"
+            class="bg-gray-400 hover:bg-gray-500 text-white px-4 py-1 rounded">Cancel</button>
+        </div>
+        <div *ngIf="editError" class="text-red-600 mt-1">{{ editError }}</div>
+        <div *ngIf="editMessage" class="text-green-600 mt-1">{{ editMessage }}</div>
+      </div>
+    </div>
+    <ng-template #editButton>
+      <button (click)="startEdit(user)" class="mt-4 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-1 rounded">Edit
+        Profile</button>
+    </ng-template>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+<div class="p-6 max-w-xl mx-auto">
+  <h2 class="text-2xl font-bold mb-4">Return Borrowed Books</h2>
+
+  <div *ngIf="message" class="text-green-600 mb-4">{{ message }}</div>
+
+  <ul>
+    <li *ngFor="let book of getBorrowedBooks()" class="flex justify-between items-center p-2 border-b">
+      {{ book.title }}
+      <button class="bg-yellow-600 text-white px-2 py-1 rounded" (click)="returnBook(book.id)">Return</button>
+    </li>
+  </ul>
+</div>

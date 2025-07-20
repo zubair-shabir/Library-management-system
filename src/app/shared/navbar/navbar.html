@@ -1,0 +1,19 @@
+<nav class="bg-gray-800 text-white p-4 flex justify-between items-center shadow">
+  <div class="text-xl font-semibold">
+    <a routerLink="/" class="hover:text-yellow-300 transition">Library System</a>
+  </div>
+
+  <div class="space-x-4 flex items-center">
+    <a *ngIf="auth.isLoggedIn && auth.isAdmin" routerLink="/admin-dashboard"
+      class="hover:text-yellow-300 cursor-pointer">Dashboard</a>
+    <a *ngIf="auth.isLoggedIn && !auth.isAdmin" routerLink="/user-dashboard"
+      class="hover:text-yellow-300 cursor-pointer">My
+      Library</a>
+    <a *ngIf="!auth.isLoggedIn" routerLink="/login" class="hover:text-yellow-300 cursor-pointer">Login</a>
+    <a *ngIf="!auth.isLoggedIn" routerLink="/register" class="hover:text-yellow-300 cursor-pointer">Register</a>
+    <button *ngIf="auth.isLoggedIn" (click)="logout()"
+      class="bg-red-500 hover:bg-red-600 px-3 py-1 rounded cursor-pointer">
+      Logout
+    </button>
+  </div>
+</nav>

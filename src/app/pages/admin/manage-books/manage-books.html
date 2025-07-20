@@ -1,0 +1,50 @@
+<div class="p-6 max-w-xl mx-auto bg-white rounded-lg shadow mt-20">
+  <h2 class="text-2xl font-bold mb-6 text-indigo-700">Manage Books</h2>
+
+ 
+
+  <div class="mb-6">
+    <input [(ngModel)]="title" class="border border-gray-300 p-2 rounded w-full focus:ring-2 focus:ring-indigo-400"
+      placeholder="Book title" />
+    <input [(ngModel)]="newBorrowLimit" type="number" min="1"
+      class="border border-gray-300 p-2 rounded w-full mt-2 focus:ring-2 focus:ring-indigo-400"
+      placeholder="Borrow limit for this book" />
+    <button (click)="addBook()"
+      class="mt-2 w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded transition">Add Book</button>
+    <div *ngIf="errorMessage" class="mt-2 text-red-600 text-sm">{{ errorMessage }}</div>
+  </div>
+
+  <h3 class="text-xl font-semibold mb-4 text-indigo-600">Books List</h3>
+  <ul class="space-y-3">
+    <li *ngFor="let book of books"
+      class="flex flex-col sm:flex-row sm:items-center justify-between bg-gray-50 p-3 rounded shadow-sm">
+      <div class="flex-1 flex flex-col sm:flex-row sm:items-center gap-2">
+        <span *ngIf="editBookId !== book.id" class="text-gray-800 font-medium">{{ book.title }}</span>
+        <span *ngIf="editBookId === book.id" class="flex items-center gap-2">
+          <input [(ngModel)]="editTitle"
+            class="border border-gray-300 p-1 rounded focus:ring-2 focus:ring-indigo-400" />
+        </span>
+        <span *ngIf="editBookId !== book.id" class="ml-4 text-sm text-gray-500">Limit: {{ book.borrowLimit }}</span>
+        <span *ngIf="editBookId === book.id" class="flex items-center gap-2 ml-4">
+          <input [(ngModel)]="editBorrowLimit" type="number" min="1"
+            class="border border-gray-300 p-1 rounded w-20 focus:ring-2 focus:ring-indigo-400" placeholder="Limit" />
+        </span>
+      </div>
+      <div class="flex gap-2 mt-2 sm:mt-0 sm:ml-4">
+        <ng-container *ngIf="editBookId !== book.id; else editActions">
+          <button (click)="startEdit(book)"
+            class="bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1 rounded transition">Edit</button>
+          <button (click)="deleteBook(book.id)"
+            class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded transition">Delete</button>
+        </ng-container>
+        <ng-template #editActions>
+          <button (click)="saveEdit()"
+            class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded transition">Save</button>
+          <button (click)="cancelEdit()"
+            class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-3 py-1 rounded transition">Cancel</button>
+        </ng-template>
+      </div>
+      <div *ngIf="editBookId === book.id && editErrorMessage" class="w-full text-red-600 text-sm mt-2">{{
+        editErrorMessage }}</div>
+    </li>
+  </ul>

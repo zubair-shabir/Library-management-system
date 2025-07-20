@@ -1,0 +1,21 @@
+<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-100 to-yellow-100">
+  <div class="p-8 max-w-md w-full bg-white rounded-xl shadow-lg">
+    <h1 class="text-3xl font-extrabold mb-6 text-green-700 text-center">
+      Welcome, <span class="text-yellow-600">{{ user?.username }}</span>
+    </h1>
+    <div class="flex flex-col gap-4">
+      <a routerLink="/user/borrow-books"
+        class="bg-green-600 hover:bg-green-700 text-white font-semibold p-3 rounded-lg shadow transition text-center">
+        📚 Borrow Books
+      </a>
+      <a routerLink="/user/return-books"
+        class="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold p-3 rounded-lg shadow transition text-center">
+        🔄 Return Books
+      </a>
+      <a routerLink="/profile"
+        class="bg-indigo-500 hover:bg-indigo-600 text-white font-semibold p-3 rounded-lg shadow transition text-center">
+        ✏️ Edit Profile
+      </a>
+    </div>
+  </div>
+</div>
