@@ -34,9 +34,7 @@ export class ReturnBooksComponent {
     const book = books.find((b: any) => b.id === bookId);
     if (book) {
       book.available = true;
-      // Increment the book's borrowLimit
       book.borrowLimit += 1;
-      // Log transaction
       this.auth.addTransaction({
         userId: this.user.id,
         username: this.user.username,

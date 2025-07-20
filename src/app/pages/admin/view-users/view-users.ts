@@ -12,7 +12,6 @@ export class ViewUsersComponent {
   users: User[] = [];
   books: any[] = [];
 
-  // Editing state
   editUserId: number | null = null;
   editUsername: string = '';
   editPassword: string = '';
@@ -53,7 +52,6 @@ export class ViewUsersComponent {
       this.editError = 'Borrow limit must be at least 1.';
       return;
     }
-    // Check for username conflict
     if (
       this.users.some(
         (u) =>
@@ -91,7 +89,9 @@ export class ViewUsersComponent {
   getTransactionsForUser(userId: number) {
     if (!this.transactionsByUser[userId]) {
       const allTransactions = this.auth.getTransactions();
-      this.transactionsByUser[userId] = allTransactions.filter(t => t.userId === userId);
+      this.transactionsByUser[userId] = allTransactions.filter(
+        (t) => t.userId === userId
+      );
     }
     return this.transactionsByUser[userId];
   }

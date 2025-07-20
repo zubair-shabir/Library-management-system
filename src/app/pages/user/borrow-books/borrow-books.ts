@@ -21,7 +21,6 @@ export class BorrowBooksComponent {
     return JSON.parse(localStorage.getItem('books') || '[]');
   }
 
-  // Check if user has already borrowed this book
   hasUserBorrowedBook(bookId: number): boolean {
     if (!this.user) return false;
     return this.user.borrowedBooks.includes(bookId);
@@ -31,13 +30,11 @@ export class BorrowBooksComponent {
     this.message = '';
     if (!this.user) return;
 
-    // Prevent borrowing if there are no books in the library
     if (this.books.length === 0) {
       this.message = 'No books are available in the library.';
       return;
     }
 
-    // Prevent borrowing if all books are already borrowed by the user
     if (
       this.books.every((book) => this.user!.borrowedBooks.includes(book.id))
     ) {
@@ -45,7 +42,6 @@ export class BorrowBooksComponent {
       return;
     }
 
-    // Enforce per-user borrow limit
     const userBorrowLimit = this.user.borrowLimit ?? 3;
     if (this.user.borrowedBooks.length >= userBorrowLimit) {
       this.message = `You can only borrow up to ${userBorrowLimit} books at a time.`;
@@ -70,14 +66,11 @@ export class BorrowBooksComponent {
       return;
     }
 
-    // Borrow the book
     this.user.borrowedBooks.push(bookId);
-    // Decrement the book's borrowLimit
     book.borrowLimit -= 1;
     this.auth.updateUser(this.user);
     localStorage.setItem('books', JSON.stringify(books));
 
-    // Log transaction
     this.auth.addTransaction({
       userId: this.user.id,
       username: this.user.username,

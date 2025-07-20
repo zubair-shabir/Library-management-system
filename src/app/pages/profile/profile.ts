@@ -30,7 +30,7 @@ export class ProfileComponent {
       this.error = 'Username and password cannot be empty.';
       return;
     }
-    // Check for username conflict (optional: implement if usernames must be unique)
+  
     let users = JSON.parse(localStorage.getItem('users') || '[]');
     if (
       users.some(

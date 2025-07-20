@@ -20,7 +20,7 @@ export const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
 
-  // Admin Routes
+ 
   {
     path: 'admin-dashboard',
     component: AdminDashboardComponent,
@@ -37,7 +37,6 @@ export const routes: Routes = [
     canActivate: [AuthGuard, AdminGuard],
   },
 
-  // User Routes
   {
     path: 'user-dashboard',
     component: UserDashboardComponent,
@@ -55,7 +54,7 @@ export const routes: Routes = [
   },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
 
-  // Wildcard route for 404
+
   { path: '**', redirectTo: 'login' },
 ];
 

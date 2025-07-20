@@ -6,8 +6,8 @@ export interface User {
   username: string;
   password: string;
   role: 'admin' | 'user';
-  borrowedBooks: number[]; // Book IDs
-  borrowLimit?: number; // Per-user borrow limit
+  borrowedBooks: number[];
+  borrowLimit?: number;
 }
 
 export interface Transaction {

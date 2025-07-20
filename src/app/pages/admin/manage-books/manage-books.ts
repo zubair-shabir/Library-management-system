@@ -18,12 +18,10 @@ export class ManageBooksComponent {
   title: string = '';
   newBorrowLimit: number | null = null;
 
-  // For editing
   editBookId: number | null = null;
   editTitle: string = '';
   editBorrowLimit: number | null = null;
 
-  // Validation messages
   errorMessage: string = '';
   editErrorMessage: string = '';
 
